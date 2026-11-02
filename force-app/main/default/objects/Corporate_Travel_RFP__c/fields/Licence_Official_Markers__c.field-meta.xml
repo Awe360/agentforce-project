@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licence_Official_Markers__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>True if the AI detected official certification markers (stamps, seals, QR codes, digital signatures) on the business licence.</description>
+    <label>Licence Official Markers Observed</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

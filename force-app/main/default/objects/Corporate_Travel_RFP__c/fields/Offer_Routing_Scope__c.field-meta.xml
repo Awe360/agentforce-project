@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Offer_Routing_Scope__c</fullName>
+    <label>Offer Routing Scope</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Requesting Station Only</fullName>
+                <default>true</default>
+                <label>Requesting Station Only</label>
+            </value>
+            <value>
+                <fullName>All ET Online Points</fullName>
+                <default>false</default>
+                <label>All ET Online Points</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

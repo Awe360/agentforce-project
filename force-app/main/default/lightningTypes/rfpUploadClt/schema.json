@@ -1,0 +1,5 @@
+{
+  "title" : "RFP Upload CLT",
+  "description" : "Document upload widget for RFP extraction in the MIAW chat window.",
+  "lightning:type" : "@apexClassType/c__RfpUploadCltData"
+}

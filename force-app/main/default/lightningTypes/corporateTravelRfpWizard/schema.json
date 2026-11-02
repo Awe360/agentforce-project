@@ -1,0 +1,5 @@
+{
+  "title" : "Corporate Travel RFP Wizard",
+  "description" : "Multi-step RFP intake wizard for Ethiopian Airlines Corporate Travel Program.",
+  "lightning:type" : "@apexClassType/c__CorporateTravelRfpWizardData"
+}

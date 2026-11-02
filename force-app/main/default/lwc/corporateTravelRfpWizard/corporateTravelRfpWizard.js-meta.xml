@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Corporate Travel RFP Wizard</masterLabel>
+    <description>Multi-step RFP intake wizard for Ethiopian Airlines Corporate Travel Program.</description>
+    <targets>
+        <target>lightning__AgentforceOutput</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AgentforceOutput">
+            <sourceType name="c__corporateTravelRfpWizard" />
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage,lightning__RecordPage">
+            <property name="value" type="String" label="Widget configuration (JSON)" description="From the action output" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

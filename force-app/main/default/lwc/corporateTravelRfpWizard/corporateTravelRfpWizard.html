@@ -1,0 +1,416 @@
+<template>
+
+    <!-- ═══════════════════════════════════════════════════
+         UPLOAD WIDGET MODE (rfp_upload / business_licence_upload)
+         ═══════════════════════════════════════════════════ -->
+    <template lwc:if={isUploadMode}>
+        <div class="ruc-container">
+
+            <template lwc:if={uploadShowIdle}>
+                <!-- Header -->
+                <div class="ruc-header">
+                    <h2 class="ruc-title">{uploadTitle}</h2>
+                    <p class="ruc-subtitle">{uploadSubtitle}</p>
+                </div>
+
+                <!-- Drop zone -->
+                <div class={dropZoneClass}
+                     ondragover={handleDragOver}
+                     ondragleave={handleDragLeave}
+                     ondrop={handleDrop}>
+                    <div class="ruc-drop-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16V8M12 8L9 11M12 8L15 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 20H17C18.1046 20 19 19.1046 19 18V9.41421C19 9.149 18.8946 8.89464 18.7071 8.70711L15.2929 5.29289C15.1054 5.10536 14.851 5 14.5858 5H7C5.89543 5 5 5.89543 5 7V18C5 19.1046 5.89543 20 7 20Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p class="ruc-drop-primary">Drag &amp; drop your document here</p>
+                    <p class="ruc-drop-secondary">or</p>
+                    <label class="ruc-browse-btn">
+                        Browse Files
+                        <input type="file" class="ruc-file-input" accept=".pdf,.doc,.docx,.xls,.xlsx" onchange={handleFileChange} />
+                    </label>
+                    <p class="ruc-formats">Accepted: PDF, DOC, DOCX, XLS, XLSX</p>
+                </div>
+
+                <!-- Selected file preview -->
+                <template lwc:if={hasFile}>
+                    <div class="ruc-file-preview">
+                        <div class="ruc-file-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 20H17C18.1046 20 19 19.1046 19 18V9.41421C19 9.149 18.8946 8.89464 18.7071 8.70711L15.2929 5.29289C15.1054 5.10536 14.851 5 14.5858 5H7C5.89543 5 5 5.89543 5 7V18C5 19.1046 5.89543 20 7 20Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="ruc-file-info">
+                            <span class="ruc-file-name">{selectedFileName}</span>
+                            <span class="ruc-file-size">{selectedFileSize}</span>
+                        </div>
+                        <button class="ruc-file-remove" onclick={handleRemoveFile} title="Remove file">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </template>
+
+                <!-- Error -->
+                <template lwc:if={uploadErrorMessage}>
+                    <div class="ruc-error">{uploadErrorMessage}</div>
+                </template>
+
+                <!-- Submit -->
+                <button class="ruc-submit" onclick={handleUploadSubmit} disabled={submitDisabled}>
+                    {uploadSubmitLabel}
+                </button>
+            </template>
+
+            <!-- Processing state -->
+            <template lwc:if={uploadShowProcessing}>
+                <div class="ruc-status ruc-status--processing">
+                    <div class="ruc-spinner"></div>
+                    <p class="ruc-status-text">{processingMessage}</p>
+                </div>
+            </template>
+
+            <!-- Success state -->
+            <template lwc:if={uploadShowSuccess}>
+                <div class="ruc-status ruc-status--success">
+                    <div class="ruc-success-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p class="ruc-status-text">{successMessage}</p>
+                </div>
+            </template>
+
+            <!-- Error state -->
+            <template lwc:if={uploadShowErrorState}>
+                <div class="ruc-status ruc-status--error">
+                    <p class="ruc-status-text">{errorStateMessage}</p>
+                    <button class="ruc-retry-btn" onclick={handleRetry}>Try Again</button>
+                </div>
+            </template>
+
+        </div>
+    </template>
+
+    <!-- ═══════════════════════════════════════════════════
+         FORM WIZARD MODE (default)
+         ═══════════════════════════════════════════════════ -->
+    <template lwc:if={isFormMode}>
+        <div class="wizard-container">
+
+            <!-- Success State -->
+            <template lwc:if={isSuccess}>
+                <div class="confirmation-view">
+                    <div class="icon-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <h2 class="confirmation-title">{confirmationTitle}</h2>
+                    <p class="confirmation-message">{confirmationMessage}</p>
+                    <template lwc:if={recordIdForDisplay}>
+                        <p class="confirmation-ref">Reference: {recordIdForDisplay}</p>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Wizard State -->
+            <template lwc:else>
+                <template lwc:if={errorMessage}>
+                    <div class="error-message" role="alert">{errorMessage}</div>
+                </template>
+
+                <div class="wizard-header">
+                    <h1 class="wizard-title">{wizardTitle}</h1>
+                    <p class="step-indicator">Step {currentStepNumber} of {totalSteps}</p>
+                </div>
+
+                <div class="step-content">
+                    <h2 class="step-title">{currentStep.title}</h2>
+
+                    <!-- Review Step -->
+                    <template lwc:if={isReviewStep}>
+                        <div class="review-summary">
+                            <template for:each={reviewSections} for:item="section">
+                                <div key={section.title} class="review-section">
+                                    <h3 class="review-section-title">{section.title}</h3>
+                                    <dl class="review-list">
+                                        <template for:each={section.fields} for:item="field">
+                                            <div key={field.label} class="review-item">
+                                                <dt class="review-label">{field.label}</dt>
+                                                <dd class="review-value">{field.value}</dd>
+                                            </div>
+                                        </template>
+                                    </dl>
+                                </div>
+                            </template>
+                            <!-- Routes review -->
+                            <template lwc:if={hasRoutes}>
+                                <div class="review-section">
+                                    <h3 class="review-section-title">Travel Routes</h3>
+                                    <dl class="review-list">
+                                        <template for:each={routes} for:item="route">
+                                            <div key={route.key} class="review-item">
+                                                <dt class="review-label">Route</dt>
+                                                <dd class="review-value">{route.origin} → {route.destination}</dd>
+                                            </div>
+                                        </template>
+                                    </dl>
+                                </div>
+                            </template>
+                            <!-- Travel Agencies review -->
+                            <template lwc:if={hasReviewTravelAgencies}>
+                                <div class="review-section">
+                                    <h3 class="review-section-title">Travel Agency Details</h3>
+                                    <template for:each={reviewTravelAgencies} for:item="agency">
+                                        <dl key={agency.key} class="review-list ta-review-entry">
+                                            <template lwc:if={agency.iataName}>
+                                                <div class="review-item">
+                                                    <dt class="review-label">IATA Name</dt>
+                                                    <dd class="review-value">{agency.iataName}</dd>
+                                                </div>
+                                            </template>
+                                            <template lwc:if={agency.iataNumber}>
+                                                <div class="review-item">
+                                                    <dt class="review-label">IATA Number</dt>
+                                                    <dd class="review-value">{agency.iataNumber}</dd>
+                                                </div>
+                                            </template>
+                                            <template lwc:if={agency.pcc}>
+                                                <div class="review-item">
+                                                    <dt class="review-label">PCC</dt>
+                                                    <dd class="review-value">{agency.pcc}</dd>
+                                                </div>
+                                            </template>
+                                            <template lwc:if={agency.gds}>
+                                                <div class="review-item">
+                                                    <dt class="review-label">GDS</dt>
+                                                    <dd class="review-value">{agency.gds}</dd>
+                                                </div>
+                                            </template>
+                                        </dl>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <!-- Business Licence File Upload Step -->
+                    <template lwc:elseif={isFileUploadStep}>
+                        <p class="fileupload-description">{bizLicStepDescription}</p>
+                        <template lwc:if={bizLicHasFile}>
+                            <div class="ruc-file-preview">
+                                <div class="ruc-file-icon">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 20H17C18.1046 20 19 19.1046 19 18V9.41421C19 9.149 18.8946 8.89464 18.7071 8.70711L15.2929 5.29289C15.1054 5.10536 14.851 5 14.5858 5H7C5.89543 5 5 5.89543 5 7V18C5 19.1046 5.89543 20 7 20Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="ruc-file-info">
+                                    <span class="ruc-file-name">{bizLicFileName}</span>
+                                    <span class="ruc-file-size">{bizLicFileSize}</span>
+                                </div>
+                                <button class="ruc-file-remove" onclick={handleRemoveBizLicFile} title="Remove file">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </template>
+                        <template lwc:else>
+                            <div class={bizLicDropZoneClass}
+                                 ondragover={handleBizLicDragOver}
+                                 ondragleave={handleBizLicDragLeave}
+                                 ondrop={handleBizLicDrop}>
+                                <div class="ruc-drop-icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 16V8M12 8L9 11M12 8L15 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7 20H17C18.1046 20 19 19.1046 19 18V9.41421C19 9.149 18.8946 8.89464 18.7071 8.70711L15.2929 5.29289C15.1054 5.10536 14.851 5 14.5858 5H7C5.89543 5 5 5.89543 5 7V18C5 19.1046 5.89543 20 7 20Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <p class="ruc-drop-primary">Drag &amp; drop your document here</p>
+                                <p class="ruc-drop-secondary">or</p>
+                                <label class="ruc-browse-btn">
+                                    Browse Files
+                                    <input type="file" class="ruc-file-input" accept=".pdf,.doc,.docx"
+                                        onchange={handleBizLicFileChange} />
+                                </label>
+                                <p class="ruc-formats">Accepted: PDF, DOC, DOCX · Max 5 MB</p>
+                            </div>
+                        </template>
+                        <template lwc:if={bizLicErrorMessage}>
+                            <div class="ruc-error">{bizLicErrorMessage}</div>
+                        </template>
+                    </template>
+
+                    <!-- Form Fields -->
+                    <template lwc:else>
+                        <div class="form-fields">
+                            <template for:each={visibleFields} for:item="field">
+                                <div key={field.name} class={field.className}>
+                                    <label class="field-label" for={field.name}>
+                                        {field.label}
+                                        <template lwc:if={field.required}>
+                                            <span class="required-indicator">*</span>
+                                        </template>
+                                    </label>
+
+                                    <template lwc:if={field.isSelect}>
+                                        <select id={field.name} data-name={field.name} class="field-input"
+                                            onchange={handleInputChange} required={field.required}>
+                                            <option value="">{field.placeholder}</option>
+                                            <template for:each={field.options} for:item="option">
+                                                <option key={option.value} value={option.value}
+                                                    selected={option.selected}>{option.label}</option>
+                                            </template>
+                                        </select>
+                                    </template>
+
+                                    <template lwc:if={field.isCheckbox}>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id={field.name} data-name={field.name}
+                                                class="field-checkbox" onchange={handleInputChange}
+                                                checked={field.checkedValue}>
+                                            <label class="checkbox-label" for={field.name}>{field.checkboxLabel}</label>
+                                        </div>
+                                    </template>
+
+                                    <template lwc:if={field.isInput}>
+                                        <input type={field.type} id={field.name} data-name={field.name}
+                                            class="field-input" onchange={handleInputChange}
+                                            placeholder={field.placeholder} value={field.currentValue}>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Dynamic Routes (shown on steps with hasRoutes:true) -->
+                        <template lwc:if={currentStepHasRoutes}>
+                            <div class="routes-section">
+                                <h3 class="routes-label">Travel Routes (Origin &amp; Destination)</h3>
+                                <template for:each={routes} for:item="route">
+                                    <div key={route.key} class="route-row">
+                                        <input type="text" class="route-input" data-key={route.key} data-field="origin"
+                                            placeholder="e.g. Addis Ababa or ADD" value={route.origin}
+                                            onblur={handleRouteChange}>
+                                        <span class="route-arrow">→</span>
+                                        <input type="text" class="route-input" data-key={route.key} data-field="destination"
+                                            placeholder="e.g. London Heathrow or LHR" value={route.destination}
+                                            onblur={handleRouteChange}>
+                                        <button class="remove-route-btn" data-key={route.key}
+                                            onclick={handleRemoveRoute} disabled={isSingleRoute}
+                                            title="Remove route">✕</button>
+                                    </div>
+                                </template>
+                                <button class="add-route-btn" onclick={handleAddRoute}>+ Add another route</button>
+                            </div>
+                        </template>
+
+                        <!-- Travel Agency Details (shown when Travel Agency checkbox is ticked) -->
+                        <template lwc:if={showTravelAgencies}>
+                            <div class="ta-section">
+                                <h3 class="ta-label">Travel Agency Details</h3>
+                                <template for:each={travelAgencies} for:item="agency">
+                                    <div key={agency.key} class="ta-card">
+                                        <div class="ta-grid">
+                                            <div class="ta-field">
+                                                <label class="ta-field-label">IATA Name</label>
+                                                <input type="text" class="ta-input" data-key={agency.key} data-field="iataName"
+                                                    placeholder="e.g. Global Travel Agency"
+                                                    value={agency.iataName} onchange={handleTravelAgencyChange}>
+                                            </div>
+                                            <div class="ta-field">
+                                                <label class="ta-field-label">IATA Number</label>
+                                                <input type="text" class="ta-input" data-key={agency.key} data-field="iataNumber"
+                                                    placeholder="e.g. 12345678"
+                                                    value={agency.iataNumber} onchange={handleTravelAgencyChange}>
+                                            </div>
+                                            <div class="ta-field">
+                                                <label class="ta-field-label">PCC</label>
+                                                <input type="text" class="ta-input" data-key={agency.key} data-field="pcc"
+                                                    placeholder="e.g. ABC1"
+                                                    value={agency.pcc} onchange={handleTravelAgencyChange}>
+                                            </div>
+                                            <div class="ta-field">
+                                                <label class="ta-field-label">GDS</label>
+                                                <input type="text" class="ta-input" data-key={agency.key} data-field="gds"
+                                                    placeholder="e.g. Amadeus"
+                                                    value={agency.gds} onchange={handleTravelAgencyChange}>
+                                            </div>
+                                        </div>
+                                        <button class="remove-ta-btn" data-key={agency.key}
+                                            onclick={handleRemoveTravelAgency} disabled={isSingleTravelAgency}
+                                            title="Remove agency">✕</button>
+                                    </div>
+                                </template>
+                                <button class="add-ta-btn" onclick={handleAddTravelAgency}>+ Add another agency</button>
+                            </div>
+                        </template>
+
+                        <!-- Fields after Travel Agency section (e.g. Requested By) -->
+                        <template lwc:if={hasVisibleFieldsAfterAgencies}>
+                            <div class="form-fields">
+                                <template for:each={visibleFieldsAfterAgencies} for:item="field">
+                                    <div key={field.name} class={field.className}>
+                                        <label class="field-label" for={field.name}>
+                                            {field.label}
+                                            <template lwc:if={field.required}>
+                                                <span class="required-indicator">*</span>
+                                            </template>
+                                        </label>
+                                        <template lwc:if={field.isSelect}>
+                                            <select id={field.name} data-name={field.name} class="field-input"
+                                                onchange={handleInputChange} required={field.required}>
+                                                <option value="">{field.placeholder}</option>
+                                                <template for:each={field.options} for:item="option">
+                                                    <option key={option.value} value={option.value}
+                                                        selected={option.selected}>{option.label}</option>
+                                                </template>
+                                            </select>
+                                        </template>
+                                        <template lwc:if={field.isCheckbox}>
+                                            <div class="checkbox-wrapper">
+                                                <input type="checkbox" id={field.name} data-name={field.name}
+                                                    class="field-checkbox" onchange={handleInputChange}
+                                                    checked={field.checkedValue}>
+                                                <label class="checkbox-label" for={field.name}>{field.checkboxLabel}</label>
+                                            </div>
+                                        </template>
+                                        <template lwc:if={field.isInput}>
+                                            <input type={field.type} id={field.name} data-name={field.name}
+                                                class="field-input" onchange={handleInputChange}
+                                                placeholder={field.placeholder} value={field.currentValue}>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+
+                <div class="wizard-footer">
+                    <template lwc:if={_saveError}>
+                        <div class="error-message" role="alert">{_saveError}</div>
+                    </template>
+                    <div class="navigation">
+                        <button class="button-secondary" onclick={handlePrevious}
+                            disabled={isFirstStep}>{previousButtonLabel}</button>
+                        <template lwc:if={isLastStep}>
+                            <button class="button-primary" onclick={handleSubmit}
+                                disabled={isSubmitDisabled}>
+                                <template lwc:if={_isSaving}>Submitting…</template>
+                                <template lwc:else>{submitButtonLabel}</template>
+                            </button>
+                        </template>
+                        <template lwc:else>
+                            <button class="button-primary" onclick={handleNext}>{nextButtonLabel}</button>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </template>
+
+</template>

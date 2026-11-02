@@ -1,0 +1,139 @@
+/* Card shell */
+.la-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    overflow: hidden;
+    font-family: var(--slds-g-font-family-sans, 'Salesforce Sans', Arial, sans-serif);
+}
+
+/* Header */
+.la-header {
+    background: linear-gradient(135deg, #00843d 0%, #005c2a 100%);
+    padding: 0.875rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.la-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.la-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.la-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Badges */
+.la-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.la-badge-high    { background: rgba(255,255,255,0.25); color: #fff; }
+.la-badge-medium  { background: rgba(255,200,0,0.85);  color: #3d2400; }
+.la-badge-low     { background: rgba(220,53,69,0.85);  color: #fff; }
+
+/* Metrics strip */
+.la-metrics {
+    display: flex;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.la-metric {
+    flex: 1;
+    padding: 0.625rem 0.875rem;
+    border-right: 1px solid #f0f0f0;
+}
+
+.la-metric-center { text-align: center; }
+
+.la-metric-right {
+    border-right: none;
+    text-align: right;
+}
+
+.la-metric-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #706e6b;
+    margin-bottom: 0.25rem;
+}
+
+.la-metric-value {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #181818;
+    min-height: 1.25rem;
+}
+
+.la-metric-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Notes body */
+.la-notes-body {
+    padding: 0.75rem 0.875rem;
+}
+
+.la-note-line {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    margin-bottom: 0.1rem;
+}
+
+.la-note-label {
+    font-weight: 700;
+    color: #00843d;
+}
+
+.la-note-value {
+    color: #181818;
+}
+
+.la-note-plain {
+    color: #3e3e3c;
+}
+
+.la-note-spacer {
+    height: 0.5rem;
+}
+
+/* Loading / empty states */
+.la-centre-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+}
+
+.la-empty-state .la-empty-text {
+    font-size: 0.8125rem;
+    color: #aeaeae;
+    margin: 0;
+}

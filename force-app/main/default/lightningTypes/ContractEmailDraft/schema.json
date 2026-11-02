@@ -1,0 +1,5 @@
+{
+  "title" : "Contract Email Draft",
+  "description" : "Formatted email draft card showing subject, recipient, and body for rep review before sending.",
+  "lightning:type" : "@apexClassType/c__ContractEmailDraftData"
+}

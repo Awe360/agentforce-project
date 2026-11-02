@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Tier_Label__c</columns>
+    <columns>Free_Tickets__c</columns>
+    <columns>Free_Tickets_Active__c</columns>
+    <columns>Free_Date_Changes__c</columns>
+    <columns>Free_Date_Changes_Active__c</columns>
+    <columns>Baggage_Uplift_Kg__c</columns>
+    <columns>Baggage_Active__c</columns>
+    <columns>Upgrades__c</columns>
+    <columns>Upgrades_Active__c</columns>
+    <columns>Lounge_At_Origin__c</columns>
+    <columns>Lounge_Active__c</columns>
+    <columns>Skylight_Hotel_Active__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

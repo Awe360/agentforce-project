@@ -1,0 +1,5 @@
+{
+  "title" : "Business Licence Upload CLT",
+  "description" : "Document upload widget for business licence intake in the MIAW chat window.",
+  "lightning:type" : "@apexClassType/c__BusinessLicenceUploadCltData"
+}

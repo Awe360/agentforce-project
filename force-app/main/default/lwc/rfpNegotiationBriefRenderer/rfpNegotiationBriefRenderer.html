@@ -1,0 +1,131 @@
+<template>
+  <div class="card" if:true={hasData}>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-info">
+        <div class="header-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="company-name">{header.companyName}</h1>
+          <p class="header-details">NFR Target: {header.nfrTarget}&nbsp;•&nbsp;Tier: {header.qualifyingTier}</p>
+        </div>
+      </div>
+      <span class="status-pill tier-badge">{header.qualifyingTier}</span>
+    </header>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+      <div class="stat-item">
+        <span class="stat-value">{header.nfrTarget}</span>
+        <span class="stat-label">NFR Target</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{header.requestedEconomy}</span>
+        <span class="stat-label">Req. Economy</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{header.requestedBusiness}</span>
+        <span class="stat-label">Req. C Class</span>
+      </div>
+    </div>
+
+    <!-- Rate Assessment -->
+    <section class="content-section" if:true={hasAssessment}>
+      <h2 class="section-title">Rate Assessment</h2>
+      <div class={assessmentCalloutClass}>
+        <p class="assessment-summary-text">{assessmentSummary}</p>
+      </div>
+    </section>
+
+    <!-- Discount Rows -->
+    <section class="content-section">
+      <h2 class="section-title">Available Discount Rows</h2>
+      <div class="reviews-list">
+        <template for:each={discountRowsWithLabel} for:item="row">
+          <div key={row.rowNumber} class={row.rowClass}>
+            <div class="review-header">
+              <h3 class="review-type">Discount Offer {row.rowNumber}</h3>
+              <div class="review-header-pills">
+                <span class={row.approvalLabelClass}>{row.approvalLabel}</span>
+                <span class={row.softOptionsPillClass}>{row.softOptionsLabel}</span>
+              </div>
+            </div>
+            <div class="rates-grid">
+              <div class="rate-cell">
+                <span class="rate-label">Eco &#x2193;</span>
+                <span class="rate-value">{row.ecoLower}</span>
+              </div>
+              <div class="rate-cell">
+                <span class="rate-label">Eco &#x2191;</span>
+                <span class="rate-value">{row.ecoHigher}</span>
+              </div>
+              <div class="rate-cell">
+                <span class="rate-label">D</span>
+                <span class="rate-value">{row.dClass}</span>
+              </div>
+              <div class="rate-cell">
+                <span class="rate-label">J</span>
+                <span class="rate-value">{row.jClass}</span>
+              </div>
+              <div class="rate-cell">
+                <span class="rate-label">C</span>
+                <span class="rate-value">{row.cClass}</span>
+              </div>
+            </div>
+            <div class="critical-dates-chips">
+              <span class="date-chip">{row.routing}</span>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- Soft Benefits -->
+    <section class="content-section" if:true={hasSoftBenefits}>
+      <h2 class="section-title">Soft Benefits at This Tier</h2>
+      <div class="callout soft-callout">
+        <ul>
+          <template if:true={showFreeTickets}>
+            <li class="benefit-item">
+              <span class="benefit-label">Free Tickets</span>
+              <span class="benefit-value">{softBenefits.freeTickets}</span>
+            </li>
+          </template>
+          <template if:true={showFreeDateChanges}>
+            <li class="benefit-item">
+              <span class="benefit-label">Free Date Changes</span>
+              <span class="benefit-value">{softBenefits.freeDateChanges}</span>
+            </li>
+          </template>
+          <template if:true={showBaggage}>
+            <li class="benefit-item">
+              <span class="benefit-label">Baggage Uplift</span>
+              <span class="benefit-value">{softBenefits.baggageUpliftKg} kg</span>
+            </li>
+          </template>
+          <template if:true={showUpgrades}>
+            <li class="benefit-item">
+              <span class="benefit-label">Upgrades</span>
+              <span class="benefit-value">{softBenefits.upgrades}</span>
+            </li>
+          </template>
+          <template if:true={showLounge}>
+            <li class="benefit-item">
+              <span class="benefit-label">Lounge at Origin</span>
+              <span class="benefit-value">Yes</span>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Rule 2 Note -->
+    <footer class="footer-callout" if:true={rule2Note}>
+      <p class="recommendation-label">Rule 2 Direct-Booking Uplift</p>
+      <p class="recommendation-text">{rule2Note}</p>
+    </footer>
+  </div>
+</template>

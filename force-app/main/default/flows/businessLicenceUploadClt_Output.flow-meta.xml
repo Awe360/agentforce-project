@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_Details_To_Options</name>
+        <label>Assign Details To Options</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Options.businessLicenceUploadCltJSON</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Details</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Passes the Details JSON string into the BusinessLicenceUploadCltData output object so the agent can render the business licence upload CLT in the chat window.</description>
+    <environments>Default</environments>
+    <interviewLabel>Business Licence Upload CLT Output {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Business Licence Upload CLT Output</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_Details_To_Options</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Send exactly this JSON string: {&quot;title&quot;:&quot;Upload Your Business Licence&quot;,&quot;subtitle&quot;:&quot;Please upload your Business Licence document to proceed with your application.&quot;,&quot;submitLabel&quot;:&quot;Upload Licence&quot;}</description>
+        <name>Details</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Display this with __show_tool_results__.</description>
+        <name>Options</name>
+        <apexClass>BusinessLicenceUploadCltData</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

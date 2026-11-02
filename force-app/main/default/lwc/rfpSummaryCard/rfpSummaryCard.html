@@ -1,0 +1,59 @@
+<template>
+    <div class="rfp-card">
+
+        <!-- Header -->
+        <div class="rfp-header">
+            <div class="rfp-header-left">
+                <div class="rfp-airline-logo">✈</div>
+                <div class="rfp-company-info">
+                    <div class="rfp-company-name">{companyName}</div>
+                    <div class="rfp-company-meta">{requestType} RFP &nbsp;·&nbsp; Submitted {submissionDate}</div>
+                </div>
+            </div>
+            <div class="rfp-header-badges">
+                <span class={statusBadgeClass}>{statusLabel}</span>
+                <span class={licenceBadgeClass}>{licenceHealthLabel}</span>
+            </div>
+        </div>
+
+        <!-- Metric tiles -->
+        <div class="rfp-metrics">
+            <div class="rfp-metric">
+                <div class="rfp-metric-icon rfp-icon-budget">$</div>
+                <div class="rfp-metric-value">{formattedNfrTarget}</div>
+                <div class="rfp-metric-label">NFR Target</div>
+            </div>
+            <div class="rfp-metric">
+                <div class="rfp-metric-icon rfp-icon-staff">👤</div>
+                <div class="rfp-metric-value">{travellingStaff}</div>
+                <div class="rfp-metric-label">Travelling Staff</div>
+            </div>
+            <div class="rfp-metric">
+                <div class="rfp-metric-icon rfp-icon-discount">%</div>
+                <div class="rfp-metric-value">{economyDiscount}</div>
+                <div class="rfp-metric-label">Economy Discount</div>
+            </div>
+            <div class="rfp-metric">
+                <div class="rfp-metric-icon rfp-icon-biz">%</div>
+                <div class="rfp-metric-value">{businessDiscount}</div>
+                <div class="rfp-metric-label">Business Discount</div>
+            </div>
+        </div>
+
+        <!-- Value score -->
+        <div class="rfp-score-section">
+            <div class="rfp-score-header">
+                <span class="rfp-score-label">RFP Value Score</span>
+                <span class={scoreRatingClass}>{scoreRating}</span>
+            </div>
+            <div class="rfp-score-bar-track">
+                <div class="rfp-score-bar-fill" style={scoreBarStyle}></div>
+            </div>
+            <div class="rfp-score-footer">
+                <span class="rfp-score-breakdown">{scoreBreakdown}</span>
+                <span class="rfp-score-number">{valueScore}/100</span>
+            </div>
+        </div>
+
+    </div>
+</template>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalation_Type__c</fullName>
+    <label>Escalation Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>In-Tier Row Increase</fullName>
+                <default>false</default>
+                <label>In-Tier Row Increase</label>
+            </value>
+            <value>
+                <fullName>Rule 2 Uplift</fullName>
+                <default>false</default>
+                <label>Rule 2 Uplift</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

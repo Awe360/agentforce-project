@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Save_RFP</name>
+        <label>Save RFP</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>CorporateTravelRfpSave</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>submissionJSON</name>
+            <value>
+                <elementReference>SubmissionJSON</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>CorporateTravelRfpSave</nameSegment>
+        <outputParameters>
+            <assignToReference>RecordId</assignToReference>
+            <name>recordId</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>ConfirmationMessage</assignToReference>
+            <name>confirmationMessage</name>
+        </outputParameters>
+    </actionCalls>
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Saves the completed Corporate Travel RFP to Salesforce. Returns a record ID and confirmation message.</description>
+    <environments>Default</environments>
+    <interviewLabel>Corporate Travel RFP Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Corporate Travel RFP Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Save_RFP</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>ConfirmationMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>RecordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>The complete JSON payload from the form submission (everything after &apos;RFP form submitted: &apos;)</description>
+        <name>SubmissionJSON</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

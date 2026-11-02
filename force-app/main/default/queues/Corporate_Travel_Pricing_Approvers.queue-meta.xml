@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesIncludeBosses>true</doesIncludeBosses>
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <name>Corporate Travel Pricing Approvers</name>
+    <queueMembers>
+        <users>
+            <user>awokege@ethiopianairlines.com</user>
+            <user>jgalvin@salesforce.com.et1</user>
+            <user>mbhattarai@salesforce.com.et1</user>
+            <user>wintahg@ethiopianairlines.com</user>
+            <user>woinshetb@ethiopianairlines.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Corporate_Travel_RFP__c</sobjectType>
+    </queueSobject>
+</Queue>

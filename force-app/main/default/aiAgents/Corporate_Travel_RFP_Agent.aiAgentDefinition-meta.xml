@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AiAgentDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <agentDSLEnabled>true</agentDSLEnabled>
+    <agentDescription>Guides corporate clients through submitting an RFP for the Ethiopian Airlines corporate travel discount program. #DisableURLRedaction#</agentDescription>
+    <agentType>EinsteinServiceAgent</agentType>
+    <botUser>corporate_travel_rfp_agent@00dim00000032rt994350233.ext</botUser>
+    <logPrivateConversationData>false</logPrivateConversationData>
+    <richContentEnabled>true</richContentEnabled>
+    <type>ExternalCopilot</type>
+</AiAgentDefinition>

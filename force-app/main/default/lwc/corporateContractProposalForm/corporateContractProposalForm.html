@@ -1,0 +1,151 @@
+<template>
+    <lightning-card >
+        <div class="centered-title custom-card-header">
+            Contract Proposal Request Form
+        </div>
+<template if:true={isSubmitted}>
+            <div class="slds-box slds-text-align_center slds-m-around_large">
+                <lightning-icon icon-name="utility:success" alternative-text="Success" variant="success" size="large"></lightning-icon>
+                <h1 class="slds-text-heading_medium slds-m-vertical_medium">
+                    Thank You! Your Proposal has been Successfully Submitted.
+                </h1>
+                <p>We have received your request and will be in touch shortly.</p>
+                
+                <div class="slds-m-top_x-large">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Go to Home Page" 
+                        onclick={goToHomePage}
+                    ></lightning-button>
+                </div>
+            </div>
+        </template>
+        <template if:false={isSubmitted}>
+
+            
+
+<div class="slds-p-around_medium">
+            <template lwc:if={isUpdateEnabled}>
+            <div class="section-header">Company Profile</div>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Company Name" name="Company" onchange={handleChange} required></lightning-input>
+                    <lightning-textarea label="Address" name="Address" onchange={handleChange} required></lightning-textarea>
+                    <lightning-input type="url" label="Website" name="Website" onchange={handleChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                     <lightning-input type="email" label="Contact Email" name="Contact_Email__c" onchange={handleChange} required></lightning-input>
+                    <lightning-input type="tel" label="Contact Phone" name="Contact_Phone_Num__c" onchange={handleChange} required></lightning-input>
+                    <lightning-input type="number" label="Number of Travelling Staff" name="NumberOfEmployees" onchange={handleChange}></lightning-input>
+                </div>
+            
+                 <div class="slds-col slds-size_1-of-1">
+                    <lightning-textarea label="Description" name="Description" onchange={handleChange}></lightning-textarea>
+                 </div>
+            </div>
+            
+            <div class="section-header">Proposal Details</div>
+            <div class="slds-grid slds-wrap slds-gutters">
+                 <div class="slds-col slds-size_1-of-2">
+                     <lightning-input type="number" formatter="currency" step="0.01" label="Annual NFR target allocated for ET" name="Minimum_Annual_Travel_Spends__c" onchange={handleChange}></lightning-input>
+                   </div>
+                 <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="number" formatter="currency" step="0.01" label="Total Company's Annual Travel budget" name="Annual_NFR_target_budget__c" onchange={handleChange} required></lightning-input>
+                 </div>
+                 
+                 <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Origin" name="Origin__c" onchange={handleChange} required></lightning-input>
+                 </div>
+                 
+                 <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Destination" name="Destination__c" onchange={handleChange} required></lightning-input>
+                 </div>
+
+                 <div class="slds-col slds-size_1-of-2">
+                    <lightning-input   label="Proposed Discount (%) for Economy" name="Proposed_Discount_for_Economy__c" onchange={handleChange} required></lightning-input>
+                 </div>
+                 <div class="slds-col slds-size_1-of-2">
+                    <lightning-input   label="Proposed Discount (%) for Business" name="Proposed_Discount_for_Business__c" onchange={handleChange} required></lightning-input>
+                 </div>
+                 
+                 <div class="slds-col slds-size_1-of-1">
+                    <lightning-textarea label="Additional Benefits" name="Additional_Benefits__c" onchange={handleChange}></lightning-textarea>
+                 </div>
+            </div>
+
+            <div class="section-header">Indicate the place of ticket issuance:</div>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!-- <div class="slds-col slds-size_1-of-1 slds-p-bottom_small">
+                    <lightning-checkbox-group name="Place_of_Ticket_Issuance__c"
+                                              label="Place of Ticket Issuance"
+                                              options={ticketIssuanceOptions}
+                                              onchange={handleCheckboxGroupChange}
+                                              required>
+                    </lightning-checkbox-group>
+                </div> -->
+                 <div class="slds-col slds-size_1-of-1 slds-p-bottom_small">
+        <lightning-input type="checkbox" label="GSA Office" name="GSA Office" onchange={handleCheckboxChange}></lightning-input>
+        <lightning-input type="checkbox" label="Travel Agency" name="Travel Agency" onchange={handleCheckboxChange}></lightning-input>
+        <lightning-input type="checkbox" label="ET Website" name="ET Website" onchange={handleCheckboxChange}></lightning-input>
+        <lightning-input type="checkbox" label="Mobile App" name="Mobile App" onchange={handleCheckboxChange}></lightning-input>
+        <lightning-input type="checkbox" label="ET Ticket Office" name="ET Ticket Office" onchange={handleCheckboxChange}></lightning-input>
+    </div>
+            </div>
+
+            <div class="section-header">Attachments:</div>
+            <lightning-file-upload
+                label="Attach Business Licence, Travel Agency Details, and other supporting documents"
+                name="fileUploader"
+                accept={acceptedFormats}
+                record-id={recordId}
+                file-field-name="Guest_Record_fileupload__c"
+                file-field-value={recordId}
+                onuploadfinished={handleUploadFinished}
+                multiple>
+            </lightning-file-upload>
+            
+            <!-- <lightning-file-upload
+                label="Attach receipt"
+                name="fileUploader"
+                accept={acceptedFormats}
+                record-id={recordId}
+                file-field-name="Guest_Record_fileupload__c"
+                file-field-value={encryptedToken}
+                onuploadfinished={handleUploadFinished}
+                multiple
+                >
+            </lightning-file-upload> -->
+
+
+            <div class="section-header">Declaration & Signature</div>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Requester Name" name="Requestor_Requestor__c" onchange={handleChange} required></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Requester Position" name="Requestor_Position__c" onchange={handleChange} required></lightning-input>
+                </div>
+            </div>
+
+            <div class="slds-m-top_large slds-text-align_center">
+                <lightning-button variant="brand" label="Submit Proposal" onclick={handleSubmit} disabled={isSubmitting}></lightning-button>
+            </div>
+
+           </template> 
+           
+<template lwc:elif={isFetching}>
+                <div class="slds-align_absolute-center">
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                    <p class="slds-m-left_small">Fetching lead form, wait a second...</p>
+                </div>
+            </template>
+           <template lwc:else>
+                <div class="slds-notify slds-notify_alert slds-theme_warning">
+                    Lead is not available right now.
+                </div>
+            </template>
+</div>
+        </template>
+
+    </lightning-card>
+</template>

@@ -1,0 +1,43 @@
+<template>
+    <lightning-card icon-name="utility:file" title="Business Licence">
+        <div slot="actions">
+            <template lwc:if={hasDocument}>
+                <lightning-button
+                    label="Full Preview"
+                    icon-name="utility:preview"
+                    icon-position="left"
+                    onclick={handleOpenPreview}>
+                </lightning-button>
+            </template>
+        </div>
+
+        <div class="container">
+            <template lwc:if={isLoading}>
+                <div class="centre-state">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template lwc:elseif={hasDocument}>
+                <iframe
+                    src={documentUrl}
+                    title="Business Licence Document"
+                    class="doc-frame"
+                    frameborder="0"
+                    onload={handleFrameLoad}>
+                </iframe>
+            </template>
+
+            <template lwc:else>
+                <div class="centre-state empty-state">
+                    <lightning-icon
+                        icon-name="utility:file"
+                        size="large"
+                        class="empty-icon">
+                    </lightning-icon>
+                    <p class="empty-text">No business licence attached to this record.</p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

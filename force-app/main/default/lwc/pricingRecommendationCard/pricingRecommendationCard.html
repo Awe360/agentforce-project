@@ -1,0 +1,145 @@
+<template>
+    <div class="price-card">
+
+        <!-- ── Header ──────────────────────────────────────────────── -->
+        <div class="price-header">
+            <div class="price-header-left">
+                <div class="price-icon">%</div>
+                <div>
+                    <div class="price-title">Pricing Recommendation</div>
+                    <template if:true={offerData.offerSet}>
+                        <div class="price-subtitle">
+                            {offerData.tierLabel}
+                            &nbsp;·&nbsp;
+                            {offerData.routingScope}
+                        </div>
+                    </template>
+                    <template if:false={offerData.offerSet}>
+                        <div class="price-subtitle">Awaiting agent recommendation</div>
+                    </template>
+                </div>
+            </div>
+            <div class="price-header-right">
+                <template if:true={offerData.offerSet}>
+                    <span class={rowBadgeClass}>{rowBadgeLabel}</span>
+                    <template if:true={offerData.approvalStatus}>
+                        <span class={approvalBadgeClass}>{offerData.approvalStatus}</span>
+                    </template>
+                </template>
+                <button class="refresh-btn" onclick={handleRefresh} title="Refresh after agent updates">&#8635;</button>
+            </div>
+        </div>
+
+        <!-- ── Loading ─────────────────────────────────────────────── -->
+        <template if:true={isLoading}>
+            <div class="price-empty">Loading…</div>
+        </template>
+
+        <!-- ── Error ───────────────────────────────────────────────── -->
+        <template if:true={hasError}>
+            <div class="price-empty price-error">{errorMessage}</div>
+        </template>
+
+        <!-- ── Empty state ─────────────────────────────────────────── -->
+        <template if:true={showEmpty}>
+            <div class="price-empty">
+                <div class="price-empty-icon">&#128172;</div>
+                <div class="price-empty-text">No offer set yet</div>
+                <div class="price-empty-hint">
+                    Ask the agent to present pricing options for this RFP.
+                    Discount Offer 1 can be offered immediately — Discount Offers 2+ require manager approval.
+                </div>
+            </div>
+        </template>
+
+        <!-- ── Offer body ───────────────────────────────────────────── -->
+        <template if:true={showOffer}>
+
+            <!-- Approval / escalation banner -->
+            <template if:true={showApprovalBanner}>
+                <div class={approvalBannerClass}>
+                    <span class="banner-icon">{bannerIcon}</span>
+                    <div class="banner-body">
+                        <div class="banner-title">{bannerTitle}</div>
+                        <template if:true={offerData.escalationType}>
+                            <div class="banner-detail">Type: {offerData.escalationType}</div>
+                        </template>
+                        <template if:true={offerData.escalationJustification}>
+                            <div class="banner-detail">{offerData.escalationJustification}</div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Discount rates — wrapped in approval tier pill -->
+            <div class={offerTierClass}>
+                <div class={offerTierLabelClass}>
+                    <span class="tier-label-icon">{offerTierIcon}</span>
+                    <span class="tier-label-text">{offerTierLabel}</span>
+                </div>
+                <div class="price-section tier-inner-section">
+                    <div class="price-section-label">Discount Rates</div>
+                    <div class="rate-grid">
+                        <div class="rate-tile">
+                            <div class="rate-class">Economy T&ndash;K</div>
+                            <div class="rate-value">{economyLowerDisplay}</div>
+                        </div>
+                        <div class="rate-tile">
+                            <div class="rate-class">Economy M&ndash;Y</div>
+                            <div class="rate-value">{economyHigherDisplay}</div>
+                        </div>
+                        <div class="rate-tile rate-tile-accent">
+                            <div class="rate-class">Soft Options</div>
+                            <div class="rate-value">{softOptionsDisplay}</div>
+                        </div>
+                        <div class="rate-tile">
+                            <div class="rate-class">Business D</div>
+                            <div class="rate-value">{dClassDisplay}</div>
+                        </div>
+                        <div class="rate-tile">
+                            <div class="rate-class">Business J</div>
+                            <div class="rate-value">{jClassDisplay}</div>
+                        </div>
+                        <div class="rate-tile">
+                            <div class="rate-class">Business C</div>
+                            <div class="rate-value">{cClassDisplay}</div>
+                        </div>
+                    </div>
+
+                    <!-- Rule 2 uplift -->
+                    <template if:true={offerData.rule2Applied}>
+                        <div class="rule2-row">
+                            <span class="rule2-badge">Rule 2 Uplift</span>
+                            <span class="rule2-pct">+{rule2PctDisplay}</span>
+                            <span class="rule2-note">additional on non-commissionable routes</span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Soft benefits -->
+            <template if:true={hasBenefits}>
+                <div class="price-section">
+                    <div class="price-section-label">Soft Benefit Tier Entitlement</div>
+                    <ul class="benefit-list">
+                        <template for:each={computedBenefits} for:item="b">
+                            <li key={b.label} class={b.itemClass}>
+                                <span class={b.iconClass}>{b.icon}</span>
+                                <span class="benefit-label">{b.label}</span>
+                                <span class="benefit-detail">{b.detail}</span>
+                                <template if:false={b.active}>
+                                    <span class="benefit-unavailable">&mdash; not currently offered</span>
+                                </template>
+                            </li>
+                        </template>
+                    </ul>
+                    <div class="benefit-footnote">
+                        Free tickets are a back-end incentive paid directly to ET &mdash; not shown on the corporate rate agreement.
+                    </div>
+                </div>
+            </template>
+
+        </template>
+
+    </div>
+</template>

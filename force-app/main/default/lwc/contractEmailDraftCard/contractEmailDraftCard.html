@@ -1,0 +1,43 @@
+<template>
+  <div class="card" if:true={hasData}>
+
+    <!-- Header -->
+    <div class="card-header">
+      <svg class="mail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="M2 7l10 7 10-7"/>
+      </svg>
+      <span class="card-header-label">Email Draft</span>
+    </div>
+
+    <!-- Meta fields -->
+    <dl class="meta-list">
+      <div class="meta-row" if:true={toLine}>
+        <dt class="meta-label">To</dt>
+        <dd class="meta-value">{toLine}</dd>
+      </div>
+      <div class="meta-row">
+        <dt class="meta-label">Subject</dt>
+        <dd class="meta-value subject-value">{subject}</dd>
+      </div>
+    </dl>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Body -->
+    <div class="body-section">
+      <template for:each={bodyParagraphs} for:item="para">
+        <p key={para.id} class="body-para">{para.text}</p>
+      </template>
+    </div>
+
+    <!-- Footer hint -->
+    <div class="card-footer">
+      Reply <strong>send it</strong> to send, or describe any changes to the draft.
+    </div>
+
+  </div>
+</template>

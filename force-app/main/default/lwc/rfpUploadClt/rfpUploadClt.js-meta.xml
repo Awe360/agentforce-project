@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>RFP Upload CLT</masterLabel>
+    <description>Chat Lightning Template that lets users upload an RFP document inside the MIAW chat window. Calls Document AI to extract fields and stores results in ET_RFP_Extract__c.</description>
+    <targets>
+        <target>lightning__AgentforceOutput</target>
+        <target>lightning__AgentforceInput</target>
+        <target>lightningSnapin__ChatMessage</target>
+    </targets>
+</LightningComponentBundle>

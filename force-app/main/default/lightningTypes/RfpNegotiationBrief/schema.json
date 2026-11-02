@@ -1,0 +1,5 @@
+{
+  "title" : "RFP Negotiation Brief",
+  "description" : "Displays the qualifying NFR tier, available discount rows, soft benefits, and rule 2 note for a Corporate Travel RFP.",
+  "lightning:type" : "@apexClassType/c__RfpNegotiationBriefData"
+}

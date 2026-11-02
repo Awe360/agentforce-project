@@ -1,0 +1,216 @@
+<template>
+    <div class="proposal-container">
+        <!-- Main Card Container -->
+        <div class="custom-card">
+            
+            <!-- Header Banner -->
+            <div class="card-header slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
+                <div class="header-title-group">
+                    <lightning-icon icon-name="standard:contract" size="medium" class="header-icon"></lightning-icon>
+                    <div>
+                        <h2 class="header-title">RFP Proposal Review</h2>
+                        <p class="header-subtitle" if:true={record}>Version {record.Version_Number__c}</p>
+                    </div>
+                </div>
+                <template if:true={record}>
+                    <span class={statusBadgeClass}>{record.Status__c}</span>
+                </template>
+            </div>
+
+            <div class="card-body">
+                <!-- Loading Spinner -->
+                <template if:true={isLoading}>
+                    <div class="spinner-container">
+                        <lightning-spinner alternative-text="Loading proposal details..." size="medium"></lightning-spinner>
+                    </div>
+                </template>
+
+                <!-- Error Alert -->
+                <template if:true={errorMessage}>
+                    <div class="custom-alert alert-error">
+                        <lightning-icon icon-name="utility:error" size="small" variant="inverse" class="slds-m-right_x-small"></lightning-icon>
+                        <span>{errorMessage}</span>
+                    </div>
+                </template>
+
+                <!-- Record Loaded & Active Flow -->
+                <template if:true={record}>
+
+                    <!-- THANK YOU / SUCCESS SCREEN -->
+                    <template if:true={isSubmitted}>
+                        <div class="thankyou-card">
+                            <div class="thankyou-icon-wrapper">
+                                <lightning-icon icon-name={thankYouIcon} size="large"></lightning-icon>
+                            </div>
+                            <h2 class="thankyou-title">{thankYouTitle}</h2>
+                            <p class="thankyou-subtitle">{thankYouSubtitle}</p>
+
+                            <!-- Summary Snippet -->
+                            <div class="thankyou-details-box">
+                                <div class="thankyou-detail-row">
+                                    <span>Proposal Version:</span>
+                                    <strong>v{record.Version_Number__c}</strong>
+                                </div>
+                                <div class="thankyou-detail-row">
+                                    <span>Current Status:</span>
+                                    <span class={statusBadgeClass}>{record.Status__c}</span>
+                                </div>
+                            </div>
+
+                            <!-- Refresh Button at Bottom -->
+                            <div class="thankyou-action-bar">
+                                <button class="btn btn-refresh" onclick={handleResetView}>
+                                    <lightning-icon icon-name="utility:refresh" size="x-small" class="btn-icon"></lightning-icon>
+                                    Refresh & View Proposal
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- REGULAR VIEW / EDIT MODES -->
+                    <template if:false={isSubmitted}>
+
+                        <!-- VIEW MODE -->
+                        <template if:false={isEditMode}>
+                            <!-- Metric Summary Cards -->
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <span class="metric-label">Business Discount</span>
+                                    <span class="metric-value">{record.Business_Discount__c}%</span>
+                                </div>
+                                <div class="metric-card">
+                                    <span class="metric-label">Economy Discount</span>
+                                    <span class="metric-value">{record.Economy_Discount__c}%</span>
+                                </div>
+                                <div class="metric-card">
+                                    <span class="metric-label">Min. Annual Target</span>
+                                    <span class="metric-value">
+                                        <lightning-formatted-number 
+                                            value={record.Min_Target_per_Year_USD__c} 
+                                            format-style="currency" 
+                                            currency-code="USD">
+                                        </lightning-formatted-number>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Main Information Sections -->
+                            <div class="info-section">
+                                <h3 class="section-heading">Key Specifications</h3>
+                                <div class="detail-grid"> 
+                                    <div class="detail-item">
+                                        <span class="detail-label">Ticket Issuance Location</span>
+                                        <span class="detail-value">{record.Ticket_Issuance_Location__c}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Details & Text Areas -->
+                            <div class="info-section">
+                                <h3 class="section-heading">Proposal Details</h3>
+                                <div class="text-block">
+                                    <h4>Routing Details</h4>
+                                    <p>{record.Routing__c}</p>
+                                </div>
+                                <div class="text-block">
+                                    <h4>Soft Benefits</h4>
+                                    <p>{record.Soft_Benefits__c}</p>
+                                </div>
+                                <div class="text-block" if:true={record.Customer_Feedback_Request__c}>
+                                    <h4>Customer Feedback / Notes</h4>
+                                    <p>{record.Customer_Feedback_Request__c}</p>
+                                </div>
+                            </div>
+
+                            <!-- Action Footer: Only visible if Status is 'Sent' -->
+                            <template if:true={canTakeAction}>
+                                <div class="action-bar">
+                                    <button class="btn btn-secondary" onclick={handleEnableUpdate}>
+                                        <lightning-icon icon-name="utility:edit" size="x-small" class="btn-icon"></lightning-icon>
+                                        Request Changes / Edit
+                                    </button>
+                                    <button class="btn btn-primary" onclick={handleAccept}>
+                                        <lightning-icon icon-name="utility:check" size="x-small" class="btn-icon-inverse"></lightning-icon>
+                                        Accept Proposal
+                                    </button>
+                                </div>
+                            </template>
+
+                            <!-- Informational Notice when Actions are Disabled -->
+                            <template if:false={canTakeAction}>
+                                <div class="info-banner">
+                                    <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                                    <span>Actions are unavailable because the current proposal status is <strong>{record.Status__c}</strong>.</span>
+                                </div>
+                            </template>
+                        </template>
+
+                        <!-- EDIT / UPDATE MODE -->
+                        <template if:true={isEditMode}>
+                            <div class="edit-form-header">
+                                <h3>Modify Proposal Details</h3>
+                                <p>Update fields below to submit changes for review.</p>
+                            </div>
+
+                            <div class="form-grid">
+                                <lightning-input 
+                                    type="number" 
+                                    name="Business_Discount__c" 
+                                    label="Business Discount (%)" 
+                                    value={formData.Business_Discount__c} 
+                                    formatter="percent-fixed"
+                                    onchange={handleInputChange}
+                                    class="form-field">
+                                </lightning-input>
+
+                                <lightning-input 
+                                    type="number" 
+                                    name="Economy_Discount__c" 
+                                    label="Economy Discount (%)" 
+                                    value={formData.Economy_Discount__c} 
+                                    formatter="percent-fixed"
+                                    onchange={handleInputChange}
+                                    class="form-field">
+                                </lightning-input>
+
+                                <lightning-input 
+                                    type="number" 
+                                    name="Min_Target_per_Year_USD__c" 
+                                    label="Min Target per Year (USD)" 
+                                    value={formData.Min_Target_per_Year_USD__c} 
+                                    formatter="currency"
+                                    step="0.01"
+                                    onchange={handleInputChange}
+                                    class="form-field">
+                                </lightning-input> 
+
+                                <lightning-textarea 
+                                    name="Soft_Benefits__c" 
+                                    label="Soft Benefits" 
+                                    value={formData.Soft_Benefits__c} 
+                                    onchange={handleInputChange}
+                                    class="form-field full-width">
+                                </lightning-textarea>
+
+                                <lightning-textarea 
+                                    name="Customer_Feedback_Request__c" 
+                                    label="Customer Feedback / Request" 
+                                    value={formData.Customer_Feedback_Request__c} 
+                                    onchange={handleInputChange}
+                                    class="form-field full-width">
+                                </lightning-textarea>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="action-bar">
+                                <button class="btn btn-secondary" onclick={handleCancelUpdate}>Cancel</button>
+                                <button class="btn btn-primary" onclick={handleSubmitUpdate}>Save & Submit</button>
+                            </div>
+                        </template>
+
+                    </template>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

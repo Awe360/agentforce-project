@@ -1,0 +1,29 @@
+.section-header {
+    background-color: #004d40; /* Dark Green */
+    color: white;
+    padding: 8px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+
+/* Center the title container regardless of icons/actions */
+.centered-title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    /* Dark Green Color */
+    color: #006400; 
+    align-items: center;
+    justify-content: center; 
+    font-size: 1.5rem   ;
+}
+
+/* Optional: To make it look even more professional */
+.custom-card-header {
+    font-size: 1.5rem;
+    padding-top: 10px;
+}

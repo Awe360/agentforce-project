@@ -1,0 +1,65 @@
+<template>
+    <div class="la-card">
+
+        <!-- Header -->
+        <div class="la-header">
+            <div class="la-header-left">
+                <div class="la-icon">🛡</div>
+                <span class="la-title">Licence Analysis</span>
+            </div>
+            <template lwc:if={confidenceLevel}>
+                <span class={confidenceBadgeClass}>{confidenceLevel}</span>
+            </template>
+        </div>
+
+        <!-- Loading -->
+        <template lwc:if={isLoading}>
+            <div class="la-centre-state">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Content -->
+        <template lwc:elseif={hasData}>
+            <div class="la-metrics">
+                <div class="la-metric">
+                    <div class="la-metric-label">Registered Name</div>
+                    <div class="la-metric-value la-metric-text">{registeredName}</div>
+                </div>
+                <div class="la-metric la-metric-center">
+                    <div class="la-metric-label">Name Match</div>
+                    <div class="la-metric-value">
+                        <span class={nameMatchBadgeClass}>{nameMatch}</span>
+                    </div>
+                </div>
+                <div class="la-metric la-metric-right">
+                    <div class="la-metric-label">Expiry / Renewal</div>
+                    <div class="la-metric-value la-metric-text">{expiryDate}</div>
+                </div>
+            </div>
+            <div class="la-notes-body">
+                <template for:each={formattedNotes} for:item="line">
+                    <div key={line.id} class="la-note-line">
+                        <template lwc:if={line.isEmpty}>
+                            <div class="la-note-spacer"></div>
+                        </template>
+                        <template lwc:elseif={line.isLabelled}>
+                            <span class="la-note-label">{line.label}: </span><span class="la-note-value">{line.value}</span>
+                        </template>
+                        <template lwc:else>
+                            <span class="la-note-plain">{line.text}</span>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <!-- Empty state -->
+        <template lwc:else>
+            <div class="la-centre-state la-empty-state">
+                <p class="la-empty-text">No licence analysis available yet.</p>
+            </div>
+        </template>
+
+    </div>
+</template>

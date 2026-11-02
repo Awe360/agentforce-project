@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licence_Document_Id__c</fullName>
+    <description>ContentDocument Id of the uploaded business licence — written on RFP creation to trigger validation flow.</description>
+    <externalId>false</externalId>
+    <label>Licence Document Id</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

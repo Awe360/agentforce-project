@@ -1,0 +1,336 @@
+/* ── Card shell ─────────────────────────────────────────────── */
+.price-card {
+    font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    margin: 0 0 12px 0;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.price-header {
+    background: linear-gradient(135deg, #00843d 0%, #005c2a 100%);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.price-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.price-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(252,208,0,0.25);
+    color: #fcd000;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.price-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.price-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.78);
+    margin-top: 2px;
+}
+
+.price-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ── Badges ─────────────────────────────────────────────────── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.badge-default   { background: rgba(255,255,255,0.2); color: #ffffff; }
+.badge-escalated { background: rgba(252,208,0,0.35);  color: #fcd000; }
+.badge-pending   { background: #f6cf46; color: #3e2900; }
+.badge-approved  { background: #2e844a; color: #ffffff; }
+.badge-rejected  { background: #c23934; color: #ffffff; }
+
+/* ── Refresh button ─────────────────────────────────────────── */
+.refresh-btn {
+    background: rgba(255,255,255,0.18);
+    border: none;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+.refresh-btn:hover { background: rgba(255,255,255,0.32); }
+
+/* ── Empty / loading ────────────────────────────────────────── */
+.price-empty {
+    padding: 28px 20px;
+    text-align: center;
+    color: #706e6b;
+}
+
+.price-empty-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.price-empty-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.price-empty-hint {
+    font-size: 13px;
+    color: #706e6b;
+    max-width: 380px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+.price-error {
+    color: #c23934;
+    font-size: 13px;
+}
+
+/* ── Approval banner ────────────────────────────────────────── */
+.approval-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 18px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.banner-pending  { background: #fef3cd; }
+.banner-approved { background: #eaf5ea; }
+.banner-rejected { background: #fde8e8; }
+
+.banner-icon {
+    font-size: 16px;
+    line-height: 1.4;
+    flex-shrink: 0;
+}
+
+.banner-title  { font-weight: 700; color: #181818; }
+.banner-detail { color: #444; margin-top: 2px; font-size: 12px; }
+
+/* ── Sections ───────────────────────────────────────────────── */
+.price-section {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.price-section:last-child { border-bottom: none; }
+
+.price-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #706e6b;
+    margin-bottom: 10px;
+}
+
+/* ── Offer tier pill (outer wrapper) ───────────────────────── */
+.offer-tier {
+    margin: 12px 14px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.offer-tier-approved {
+    background: #f0faf0;
+    border: 1.5px solid #2e844a;
+}
+
+.offer-tier-escalated {
+    background: #fff9e6;
+    border: 1.5px solid #fcd000;
+}
+
+.offer-tier-rejected {
+    background: #fde8e8;
+    border: 1.5px solid #c23934;
+}
+
+.tier-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.tier-label-approved {
+    background: rgba(46, 132, 74, 0.10);
+    color: #1a5c35;
+    border-bottom: 1px solid rgba(46, 132, 74, 0.15);
+}
+
+.tier-label-escalated {
+    background: rgba(252, 208, 0, 0.22);
+    color: #5e4200;
+    border-bottom: 1px solid rgba(252, 208, 0, 0.45);
+}
+
+.tier-label-rejected {
+    background: rgba(194, 57, 52, 0.10);
+    color: #7a1c1c;
+    border-bottom: 1px solid rgba(194, 57, 52, 0.20);
+}
+
+.tier-label-icon { font-size: 13px; font-weight: 800; }
+.tier-label-text { font-size: 11px; }
+
+.tier-inner-section { border-bottom: none !important; background: transparent; }
+
+/* ── Discount rate grid ─────────────────────────────────────── */
+.rate-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.rate-tile {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 10px 12px;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+}
+
+.rate-tile-accent {
+    background: #fffbea;
+    border-color: #fcd000;
+}
+
+.rate-class {
+    font-size: 11px;
+    color: #706e6b;
+    margin-bottom: 4px;
+}
+
+.rate-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #00843d;
+}
+
+/* ── Rule 2 row ─────────────────────────────────────────────── */
+.rule2-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 6px 10px;
+    background: #f0f7ff;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.rule2-badge {
+    background: #0070d2;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.rule2-pct   { font-weight: 700; color: #0070d2; }
+.rule2-note  { color: #706e6b; font-size: 12px; }
+
+/* ── Soft benefits ──────────────────────────────────────────── */
+.benefit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.benefit-active  { opacity: 1; }
+.benefit-inactive { opacity: 0.55; }
+
+.benefit-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.icon-active   { background: #2e844a; color: #ffffff; }
+.icon-inactive { background: #d8d8d8; color: #706e6b; }
+
+.benefit-label {
+    font-weight: 600;
+    color: #181818;
+    min-width: 130px;
+}
+
+.benefit-detail { color: #444; }
+
+.benefit-unavailable {
+    font-size: 11px;
+    color: #c23934;
+    font-style: italic;
+}
+
+.benefit-footnote {
+    font-size: 11px;
+    color: #aaa;
+    font-style: italic;
+    margin-top: 4px;
+}

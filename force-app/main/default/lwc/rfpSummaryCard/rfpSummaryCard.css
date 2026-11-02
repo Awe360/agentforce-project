@@ -1,0 +1,185 @@
+/* ── Card shell ────────────────────────────────────────────── */
+.rfp-card {
+    font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    margin: 0 0 12px 0;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.rfp-header {
+    background: linear-gradient(135deg, #00843d 0%, #005c2a 100%);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.rfp-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rfp-airline-logo {
+    font-size: 28px;
+    color: #fcd000;
+    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.rfp-company-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.rfp-company-meta {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+}
+
+.rfp-header-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ── Badges ─────────────────────────────────────────────────── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.badge-status-new       { background: #fcd000; color: #1a1a1a; }
+.badge-status-review    { background: #ff8c00; color: #ffffff; }
+.badge-status-approved  { background: #04844b; color: #ffffff; border: 1px solid rgba(255,255,255,0.4); }
+.badge-status-rejected  { background: #c23934; color: #ffffff; }
+.badge-status-default   { background: rgba(255,255,255,0.2); color: #ffffff; }
+
+.badge-confidence-high   { background: #2e7d32; color: #ffffff; }
+.badge-confidence-medium { background: #bf6900; color: #ffffff; }
+.badge-confidence-low    { background: #c23934; color: #ffffff; }
+.badge-licence-unknown   { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); }
+
+/* ── Metric tiles ───────────────────────────────────────────── */
+.rfp-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.rfp-metric {
+    padding: 16px 12px 14px;
+    text-align: center;
+    border-right: 1px solid #f0f0f0;
+    position: relative;
+}
+
+.rfp-metric:last-child { border-right: none; }
+
+.rfp-metric-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.rfp-icon-budget  { background: #e8f5ee; color: #00843d; }
+.rfp-icon-staff   { background: #e8f0ff; color: #1b5cbd; font-size: 16px; }
+.rfp-icon-discount { background: #fff8e0; color: #9a6500; }
+.rfp-icon-biz     { background: #fff0f0; color: #a0171a; }
+
+.rfp-metric-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #181818;
+    line-height: 1.1;
+}
+
+.rfp-metric-label {
+    font-size: 11px;
+    color: #706e6b;
+    margin-top: 3px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* ── Score section ──────────────────────────────────────────── */
+.rfp-score-section {
+    padding: 14px 20px 16px;
+    background: #fafafa;
+}
+
+.rfp-score-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.rfp-score-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.score-rating-high   { font-size: 12px; font-weight: 700; color: #04844b; background: #e8f5ee; padding: 2px 10px; border-radius: 12px; }
+.score-rating-good   { font-size: 12px; font-weight: 700; color: #1b5cbd; background: #e8f0ff; padding: 2px 10px; border-radius: 12px; }
+.score-rating-mod    { font-size: 12px; font-weight: 700; color: #9a6500; background: #fff8e0; padding: 2px 10px; border-radius: 12px; }
+.score-rating-review { font-size: 12px; font-weight: 700; color: #a0171a; background: #fff0f0; padding: 2px 10px; border-radius: 12px; }
+
+.rfp-score-bar-track {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.rfp-score-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #00843d, #fcd000);
+    transition: width 0.6s ease;
+}
+
+.rfp-score-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.rfp-score-breakdown {
+    font-size: 11px;
+    color: #706e6b;
+}
+
+.rfp-score-number {
+    font-size: 11px;
+    font-weight: 700;
+    color: #444;
+}

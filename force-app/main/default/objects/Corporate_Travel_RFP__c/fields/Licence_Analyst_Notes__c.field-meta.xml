@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Licence_Analyst_Notes__c</fullName>
+    <description>AI analyst observations for the Sales Agent reviewer — includes marker quality, name match reasoning, capital amount, and any date or authenticity concerns.</description>
+    <label>Licence Analyst Notes</label>
+    <length>4000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

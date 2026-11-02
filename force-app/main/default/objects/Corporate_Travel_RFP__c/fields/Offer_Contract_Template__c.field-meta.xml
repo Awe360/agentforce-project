@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Offer_Contract_Template__c</fullName>
+    <label>Offer Contract Template</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Main</fullName>
+                <default>true</default>
+                <label>Main</label>
+            </value>
+            <value>
+                <fullName>50K Threshold</fullName>
+                <default>false</default>
+                <label>50K Threshold</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

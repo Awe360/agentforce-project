@@ -1,0 +1,31 @@
+.container {
+    min-height: 120px;
+}
+
+.doc-frame {
+    display: block;
+    width: 100%;
+    height: 560px;
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-1, #e5e5e5);
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    background-color: var(--slds-g-color-surface-2, #f3f3f3);
+}
+
+.centre-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--slds-g-spacing-8, 2rem) var(--slds-g-spacing-4, 1rem);
+}
+
+.empty-icon {
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
+    --sds-c-icon-color-foreground-default: var(--slds-g-color-on-surface-3, #aeaeae);
+}
+
+.empty-text {
+    font-size: var(--slds-g-font-size-3, 0.875rem);
+    color: var(--slds-g-color-on-surface-3, #aeaeae);
+    margin: 0;
+}

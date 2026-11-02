@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Assign_Details_To_Options</name>
+        <label>Assign Details To Options</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>Options.wizardJSON</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>MergedWizardJSON</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Displays the Ethiopian Airlines Corporate Travel RFP multi-step wizard form. Always use show_command to render the output.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>MergedWizardJSON</name>
+        <dataType>String</dataType>
+        <expression>IF({!Details} = &apos;form&apos;, LEFT({!StandardFormJSON}, LEN({!StandardFormJSON}) - 1), LEFT({!UploadJSON}, LEN({!UploadJSON}) - 1)) &amp; &apos;,&quot;prefillValuesJSON&quot;:&quot;&apos; &amp; JSENCODE({!PrefillValuesJSON}) &amp; &apos;&quot;,&quot;rfpDocumentId&quot;:&quot;&apos; &amp; JSENCODE({!ContentDocumentIds}) &amp; &apos;&quot;}&apos;</expression>
+    </formulas>
+    <interviewLabel>Corporate Travel RFP Wizard {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Corporate Travel RFP Wizard</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Assign_Details_To_Options</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Optional. ContentDocumentId of the uploaded RFP source document to retain on the RFP record.</description>
+        <name>ContentDocumentIds</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Mode signal: &quot;form&quot; = show the multi-step wizard form, &quot;upload&quot; = show the RFP upload widget.</description>
+        <name>Details</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Show to the user.</description>
+        <name>Options</name>
+        <apexClass>CorporateTravelRfpWizardData</apexClass>
+        <dataType>Apex</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <description>Optional. JSON string of pre-extracted field values to pre-populate the wizard. Pass the ExtractedFieldsJSON output from get_rfp_extract on Path A.</description>
+        <name>PrefillValuesJSON</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Internal. Full multi-step wizard form JSON configuration.</description>
+        <name>StandardFormJSON</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>{&quot;title&quot;:&quot;Ethiopian Airlines Corporate Travel RFP&quot;,&quot;submitButtonLabel&quot;:&quot;Submit Application&quot;,&quot;previousButtonLabel&quot;:&quot;Previous&quot;,&quot;nextButtonLabel&quot;:&quot;Next&quot;,&quot;confirmationTitle&quot;:&quot;Application Submitted&quot;,&quot;confirmationMessage&quot;:&quot;Thank you for submitting your Corporate Travel RFP. Our Global Corporate Sales team will be in touch within 2 working days.&quot;,&quot;steps&quot;:[{&quot;title&quot;:&quot;Company Profile&quot;,&quot;fields&quot;:[{&quot;name&quot;:&quot;companyName&quot;,&quot;label&quot;:&quot;Company Name&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;full&quot;,&quot;placeholder&quot;:&quot;e.g., Acme Corporation Ltd&quot;},{&quot;name&quot;:&quot;street&quot;,&quot;label&quot;:&quot;Street&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;full&quot;,&quot;placeholder&quot;:&quot;e.g., Bole Road, Kirkos Sub-City&quot;},{&quot;name&quot;:&quot;city&quot;,&quot;label&quot;:&quot;City&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;e.g., Addis Ababa&quot;},{&quot;name&quot;:&quot;state&quot;,&quot;label&quot;:&quot;State \/ Province&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;e.g., Addis Ababa City Administration&quot;},{&quot;name&quot;:&quot;postalCode&quot;,&quot;label&quot;:&quot;Postal Code&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;e.g., 1000&quot;},{&quot;name&quot;:&quot;country&quot;,&quot;label&quot;:&quot;Country&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;e.g., Ethiopia&quot;},{&quot;name&quot;:&quot;website&quot;,&quot;label&quot;:&quot;Website&quot;,&quot;type&quot;:&quot;url&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;https://www.example.com&quot;},{&quot;name&quot;:&quot;primaryLineOfBusiness&quot;,&quot;label&quot;:&quot;Primary Line of Business&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;e.g., Financial Services&quot;},{&quot;name&quot;:&quot;numberOfTravellingStaff&quot;,&quot;label&quot;:&quot;Number of Travelling Staff&quot;,&quot;type&quot;:&quot;number&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;e.g., 50&quot;},{&quot;name&quot;:&quot;annualTravelBudget&quot;,&quot;label&quot;:&quot;Annual Travel Budget (USD)&quot;,&quot;type&quot;:&quot;number&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;e.g., 100000&quot;}]},{&quot;title&quot;:&quot;Contact &amp; Request&quot;,&quot;fields&quot;:[{&quot;name&quot;:&quot;contactName&quot;,&quot;label&quot;:&quot;Contact Name&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;full&quot;,&quot;placeholder&quot;:&quot;Full name&quot;},{&quot;name&quot;:&quot;contactEmail&quot;,&quot;label&quot;:&quot;Contact Email&quot;,&quot;type&quot;:&quot;email&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;name@company.com&quot;},{&quot;name&quot;:&quot;contactPhone&quot;,&quot;label&quot;:&quot;Contact Phone&quot;,&quot;type&quot;:&quot;tel&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;+1 (555) 123-4567&quot;},{&quot;name&quot;:&quot;requestType&quot;,&quot;label&quot;:&quot;Request Type&quot;,&quot;type&quot;:&quot;select&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;full&quot;,&quot;placeholder&quot;:&quot;Select...&quot;,&quot;options&quot;:[{&quot;label&quot;:&quot;New Application&quot;,&quot;value&quot;:&quot;New&quot;},{&quot;label&quot;:&quot;Renewal&quot;,&quot;value&quot;:&quot;Renewal&quot;}]},{&quot;name&quot;:&quot;corporateId&quot;,&quot;label&quot;:&quot;Corporate ID&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;Existing corporate ID&quot;,&quot;showIf&quot;:{&quot;field&quot;:&quot;requestType&quot;,&quot;value&quot;:&quot;Renewal&quot;}},{&quot;name&quot;:&quot;nfrJustification&quot;,&quot;label&quot;:&quot;NFR Justification&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;full&quot;,&quot;placeholder&quot;:&quot;Explain if previous NFR was below target&quot;,&quot;showIf&quot;:{&quot;field&quot;:&quot;requestType&quot;,&quot;value&quot;:&quot;Renewal&quot;}}]},{&quot;title&quot;:&quot;Proposal Details&quot;,&quot;hasRoutes&quot;:true,&quot;fields&quot;:[{&quot;name&quot;:&quot;annualNfrTarget&quot;,&quot;label&quot;:&quot;Annual NFR Target (USD)&quot;,&quot;type&quot;:&quot;number&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;full&quot;,&quot;placeholder&quot;:&quot;Minimum USD 50,000&quot;},{&quot;name&quot;:&quot;economyDiscount&quot;,&quot;label&quot;:&quot;Economy Discount % (incl. RBD restriction if any)&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;&quot;},{&quot;name&quot;:&quot;businessDiscount&quot;,&quot;label&quot;:&quot;Business Class Discount % (incl. RBD restriction if any)&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;half&quot;,&quot;placeholder&quot;:&quot;&quot;},{&quot;name&quot;:&quot;additionalBenefits&quot;,&quot;label&quot;:&quot;Additional Benefits Requested&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;full&quot;,&quot;placeholder&quot;:&quot;&quot;}]},{&quot;title&quot;:&quot;Ticket Issuance &amp; Declaration&quot;,&quot;hasTravelAgencies&quot;:true,&quot;fields&quot;:[{&quot;name&quot;:&quot;ticketIssuanceEtOffice&quot;,&quot;label&quot;:&quot;ET Office&quot;,&quot;type&quot;:&quot;checkbox&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;full&quot;,&quot;checkboxLabel&quot;:&quot;Tickets issued via Ethiopian Airlines ET Office&quot;},{&quot;name&quot;:&quot;ticketIssuanceGsaOffice&quot;,&quot;label&quot;:&quot;GSA Office&quot;,&quot;type&quot;:&quot;checkbox&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;full&quot;,&quot;checkboxLabel&quot;:&quot;Tickets issued via GSA Office&quot;},{&quot;name&quot;:&quot;ticketIssuanceTravelAgency&quot;,&quot;label&quot;:&quot;Travel Agency&quot;,&quot;type&quot;:&quot;checkbox&quot;,&quot;required&quot;:false,&quot;width&quot;:&quot;full&quot;,&quot;checkboxLabel&quot;:&quot;Tickets issued via Travel Agency&quot;},{&quot;name&quot;:&quot;requestedBy&quot;,&quot;label&quot;:&quot;Requested By (Name &amp; Position)&quot;,&quot;type&quot;:&quot;text&quot;,&quot;required&quot;:true,&quot;width&quot;:&quot;full&quot;,&quot;placeholder&quot;:&quot;e.g., Jane Smith, Head of Travel&quot;,&quot;afterAgencies&quot;:true}]},{&quot;title&quot;:&quot;Business Licence&quot;,&quot;type&quot;:&quot;fileupload&quot;,&quot;description&quot;:&quot;Please upload your current Business Licence or Certificate of Incorporation (PDF, DOC or DOCX, max 5 MB).&quot;,&quot;required&quot;:true},{&quot;title&quot;:&quot;Review &amp; Submit&quot;,&quot;fields&quot;:[]}]}</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Internal. RFP document upload widget JSON configuration.</description>
+        <name>UploadJSON</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>{&quot;mode&quot;:&quot;rfp_upload&quot;,&quot;title&quot;:&quot;Upload RFP Document&quot;,&quot;subtitle&quot;:&quot;Select your Request for Proposal document to extract application details automatically.&quot;,&quot;submitLabel&quot;:&quot;Upload &amp; Extract&quot;}</stringValue>
+        </value>
+    </variables>
+</Flow>
